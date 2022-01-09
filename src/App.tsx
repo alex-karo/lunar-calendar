@@ -128,10 +128,10 @@ function App() {
   }));
 
   const astronomicEvents = astronomicData.flatMap(({moonRise, moonSet, sunRise, sunSet}) => [
-    { start: sunRise, end: sunRise, title: '☀️ Восход', backgroundColor: 'yellow', textColor: 'black' },
-    { start: sunSet, end: sunSet, title: '☀️ Закат', backgroundColor: 'yellow', textColor: 'black' },
-    { start: moonRise, end: moonRise, title: '🌙 Восход', backgroundColor: 'darkgrey' },
-    { start: moonSet, end: moonSet, title: '🌙 Закат', backgroundColor: 'darkgrey' },
+    { start: sunRise, end: sunRise, title: '☀️ ⬆️', backgroundColor: 'yellow', textColor: 'black' },
+    { start: sunSet, end: sunSet, title: '☀️ ⬇️', backgroundColor: 'yellow', textColor: 'black' },
+    { start: moonRise, end: moonRise, title: '🌙 ⬆️', backgroundColor: 'darkgrey' },
+    { start: moonSet, end: moonSet, title: '🌙 ⬇️', backgroundColor: 'darkgrey' },
   ])
     .filter(ev => ev);
 
