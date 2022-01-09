@@ -88,7 +88,7 @@ function App() {
   const [astronomicData, setAstronomicData] = useState<ActromomicEvent[]>([]);
   useEffect(() => {
     (async () => {
-      const data = await getMoonPhases(2021);
+      const data = await getMoonPhases(new Date().getFullYear());
       setPhases(data);
       const days: Day[] = [];
       for (let i = 0; i < data.length - 1; i += 1) {
