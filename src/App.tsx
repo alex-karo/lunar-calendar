@@ -36,12 +36,17 @@ const MOON_PHASES = {
   3: "🌗 Третья четверть", // Last Quarter
 };
 
-const location = {
+type Location = {
+  lat: number;
+  lon: number;
+}
+
+const spb = {
   lon: 30.3388,
   lat: 59.9446,
 };
 
-async function getAstronomicEvents(): Promise<ActromomicEvent[]> {
+async function getAstronomicEvents(location: Location): Promise<ActromomicEvent[]> {
   const start = subDays(Date.now(), 30);
   const promises = Array(400)
     .fill(null)
@@ -83,6 +88,7 @@ async function getMoonPhases(year: number): Promise<Phase[]> {
 }
 
 function App() {
+  const [location, setLocation] = useState<Location>(spb);
   const [days, setDays] = useState<Day[]>([]);
   const [phases, setPhases] = useState<Phase[]>([]);
   const [astronomicData, setAstronomicData] = useState<ActromomicEvent[]>([]);
@@ -108,9 +114,16 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      const events = await getAstronomicEvents();
+      const events = await getAstronomicEvents(location);
       setAstronomicData(events);
     })();
+  }, [location]);
+  
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(({coords}) => {
+      const {latitude, longitude} = coords;
+      setLocation({lat: latitude, lon: longitude});
+    }, (e) => console.warn(e), {});
   }, []);
 
   const dayEvents: EventSourceInput[] = days.map(({ start, end, count }) => ({
